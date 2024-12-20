@@ -1,29 +1,26 @@
 package ru.practicum.dinner;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
-    static DinnerConstructor dc;
+    static DinnerConstructor dinnerConstructor;
     static Scanner scanner;
 
     public static void main(String[] args) {
-        dc = new DinnerConstructor();
+        dinnerConstructor = new DinnerConstructor();
         scanner = new Scanner(System.in);
 
         while (true) {
             printMenu();
-            String command = scanner.nextLine();
+            int command = scanner.nextInt();
 
             switch (command) {
-                case "1":
-                    addNewDish();
-                    break;
-                case "2":
-                    generateDishCombo();
-                    break;
-                case "3":
-                    return;
+                case 1 -> addNewDish();
+                case 2 -> generateDishCombo();
+                case 3 -> {System.out.println("Работа с приложением завершена."); return;}
+                default -> System.out.println("Неизвестная команда: " + command);
             }
         }
     }
@@ -41,7 +38,8 @@ public class Main {
         System.out.println("Введите название блюда:");
         String dishName = scanner.nextLine();
 
-        // добавьте новое блюдо
+        dinnerConstructor.saveDish(dishType,dishName);
+
     }
 
     private static void generateDishCombo() {
@@ -52,14 +50,15 @@ public class Main {
         scanner.nextLine();
 
         System.out.println("Вводите типы блюда, разделяя символом переноса строки (enter). Для завершения ввода введите пустую строку");
+
         String nextItem = scanner.nextLine();
+        ArrayList<String> categoriesForCombo =  new ArrayList<>();
 
-        //реализуйте ввод типов блюд
         while (!nextItem.isEmpty()) {
-
+            if (dinnerConstructor.checkCategory(nextItem)) categoriesForCombo.add(nextItem);
+            else System.out.println("Такой категории не существует. Введите существующую категорию.");
+            nextItem = scanner.nextLine();
         }
-
-        // сгенерируйте комбинации блюд и выведите на экран
-
+        dinnerConstructor.returnDishes(categoriesForCombo,numberOfCombos);
     }
 }
