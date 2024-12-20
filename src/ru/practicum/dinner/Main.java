@@ -5,16 +5,13 @@ import java.util.Scanner;
 
 public class Main {
 
-    static DinnerConstructor dinnerConstructor;
-    static Scanner scanner;
+    private static DinnerConstructor dinnerConstructor = new DinnerConstructor();
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        dinnerConstructor = new DinnerConstructor();
-        scanner = new Scanner(System.in);
-
         while (true) {
             printMenu();
-            int command = scanner.nextInt();
+            int command = getCommand();
 
             switch (command) {
                 case 1 -> addNewDish();
@@ -33,13 +30,9 @@ public class Main {
     }
 
     private static void addNewDish() {
-        System.out.println("Введите тип блюда:");
-        String dishType = scanner.nextLine();
-        System.out.println("Введите название блюда:");
-        String dishName = scanner.nextLine();
-
+        System.out.println("Введите тип блюда:"); String dishType = scanner.nextLine();
+        System.out.println("Введите название блюда:"); String dishName = scanner.nextLine();
         dinnerConstructor.saveDish(dishType,dishName);
-
     }
 
     private static void generateDishCombo() {
@@ -61,4 +54,15 @@ public class Main {
         }
         dinnerConstructor.returnDishes(categoriesForCombo,numberOfCombos);
     }
+
+    private static int getCommand() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Пожалуйста, введите числовую команду.");
+            }
+        }
+    }
+
 }

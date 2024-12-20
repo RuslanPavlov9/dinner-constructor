@@ -8,7 +8,7 @@ public class DinnerConstructor {
     private HashMap<String, ArrayList<String>> dishByCategories = new HashMap<>();
     private Random random = new Random();
 
-    DinnerConstructor() {
+ /*   DinnerConstructor() {
         ArrayList<String> listOfDishes = new ArrayList<>();
         listOfDishes.add("Щи");
         listOfDishes.add("Борщ");
@@ -37,20 +37,10 @@ public class DinnerConstructor {
         listOfDishes.add("Кофе");
         dishByCategories.put("Напитки",listOfDishes);
 
-    }
+    } */
 
     void saveDish(String dishCategory, String dish){
-//        dishByCategories.computeIfAbsent(dishCategory, k-> new ArrayList<>()).add(dish);
-        if(checkCategory(dishCategory))  {
-            ArrayList<String> list = dishByCategories.get(dishCategory);
-            list.add(dish);
-        }
-        else {
-            ArrayList<String> listOfDishes = new ArrayList<>();
-            listOfDishes.add(dish);
-            dishByCategories.put(dishCategory, listOfDishes);
-        }
-
+        dishByCategories.computeIfAbsent(dishCategory, k-> new ArrayList<>()).add(dish);
     }
 
     boolean checkCategory (String dishCategory) {
